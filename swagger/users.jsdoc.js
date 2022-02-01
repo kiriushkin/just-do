@@ -63,3 +63,119 @@
  *                   type: string
  *                   example: Something went wrong, try again.
  */
+
+/**
+ * @swagger
+ * /api/users:
+ *   put:
+ *     tags: [Users]
+ *     summary: Update user's data.
+ *     security:
+ *       - bearerAuth: []
+ *     description: Updates a single user based on their JWT.
+ *     produces:
+ *       application/json
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               firstName:
+ *                 type: string
+ *                 example: Jane
+ *               currentPassword:
+ *                 type: string
+ *                 example: FooBar3#
+ *               newPassword:
+ *                 type: string
+ *                 example: FooBar2#
+ *               image:
+ *                 type: file
+ *     responses:
+ *       200:
+ *         description: Updated.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: User updated.
+ *       400:
+ *         description: Wrong password.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Incorrect password, try again.
+ *       401:
+ *         description: Either token isn't passed or token is invalid.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Authorization required.
+ *       500:
+ *         description: Serverside error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Something went wrong, try again.
+ */
+
+/**
+ * @swagger
+ * /api/users:
+ *   delete:
+ *     tags: [Users]
+ *     summary: Delete user.
+ *     security:
+ *       - bearerAuth: []
+ *     description: Delete a single user based on their JWT.
+ *     produces:
+ *       application/json
+ *     responses:
+ *       200:
+ *         description: Deleted.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: User deleted.
+ *       401:
+ *         description: Either token isn't passed or token is invalid.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Authorization required.
+ *       500:
+ *         description: Serverside error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Something went wrong, try again.
+ */
