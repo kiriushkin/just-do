@@ -15,4 +15,14 @@
  *     responses:
  *       200:
  *         description: Image.
+ *       404:
+ *         decsription: Image not found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Image not found.
  */
