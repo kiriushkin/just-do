@@ -9,12 +9,10 @@ class TasksController {
 
       res.send(result);
     } catch (e) {
-      res
-        .status(500)
-        .send({
-          message: "Something went wrong, try again.",
-          error: e.message,
-        });
+      res.status(500).send({
+        message: "Something went wrong, try again.",
+        error: e.message,
+      });
     }
   }
 
@@ -26,7 +24,7 @@ class TasksController {
 
       if (!result) throw new Error();
 
-      res.status(201).send({ message: "Task created." });
+      res.status(201).send({ message: "Task created.", data: result });
     } catch (e) {
       res.status(500).send({
         message: "Something went wrong, try again.",

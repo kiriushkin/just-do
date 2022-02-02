@@ -24,7 +24,7 @@ class CategoriesController {
 
       if (!result) throw new Error();
 
-      res.status(201).send({ message: "Category created." });
+      res.status(201).send({ message: "Category created.", data: result });
     } catch (e) {
       res.status(500).send({
         message: "Something went wrong, try again.",
