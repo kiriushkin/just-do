@@ -120,6 +120,9 @@
  *                 message:
  *                   type: string
  *                   example: Task created.
+ *                 data:
+ *                   type: object
+ *                   description: Created task
  *       401:
  *         description: Either token isn't passed or token is invalid.
  *         content:
