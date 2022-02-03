@@ -1,6 +1,7 @@
 const { Sequelize, sequelize } = require("../services/sequelize");
 const User = require("./User");
 const Category = require("./Category");
+const Group = require("./Group");
 
 const Task = sequelize.define("task", {
   id: {
@@ -36,6 +37,7 @@ const Task = sequelize.define("task", {
 
 Task.belongsTo(User);
 Task.belongsTo(Category);
+Task.belongsTo(Group);
 
 sequelize
   .sync()
