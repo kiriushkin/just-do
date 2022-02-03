@@ -21,12 +21,13 @@ class UsersService {
 
   async updateUser(user) {
     const result = await User.update(user, {
+      returning: true,
       where: { id: user.id },
     });
 
     if (!result) return false;
 
-    return result;
+    return result[1][0];
   }
 
   async deleteUser(id) {
