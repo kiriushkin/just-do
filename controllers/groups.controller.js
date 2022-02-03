@@ -1,9 +1,9 @@
-const TasksService = require("../services/tasks.service");
+const GroupsService = require("../services/groups.service");
 
-class TasksController {
-  async getTasks(req, res) {
+class GroupsController {
+  async getGroups(req, res) {
     try {
-      const result = await TasksService.getTasks(req.user.userId);
+      const result = await GroupsService.getGroups(req.user.userId);
 
       if (!result) throw new Error();
 
@@ -16,15 +16,15 @@ class TasksController {
     }
   }
 
-  async createTask(req, res) {
+  async createGroup(req, res) {
     try {
       req.body.userId = req.user.userId;
 
-      const result = await TasksService.createTask(req.body);
+      const result = await GroupsService.createGroup(req.body);
 
       if (!result) throw new Error();
 
-      res.status(201).send({ message: "Task created.", data: result });
+      res.status(201).send({ message: "Group created.", data: result });
     } catch (e) {
       res.status(500).send({
         message: "Something went wrong, try again.",
@@ -33,13 +33,13 @@ class TasksController {
     }
   }
 
-  async updateTask(req, res) {
+  async updateGroup(req, res) {
     try {
-      const result = await TasksService.updateTask(req.body);
+      const result = await GroupsService.updateGroup(req.body);
 
       if (!result) throw new Error();
 
-      res.status(200).send({ message: "Task updated.", data: result });
+      res.status(200).send({ message: "Group updated.", data: result });
     } catch (e) {
       res.status(500).send({
         message: "Something went wrong, try again.",
@@ -48,13 +48,13 @@ class TasksController {
     }
   }
 
-  async deleteTask(req, res) {
+  async deleteGroup(req, res) {
     try {
-      const result = await TasksService.deleteTask(req.body.id);
+      const result = await GroupsService.deleteGroup(req.body.id);
 
       if (!result) throw new Error();
 
-      res.status(200).send({ message: "Task deleted." });
+      res.status(200).send({ message: "Group deleted." });
     } catch (e) {
       res.status(500).send({
         message: "Something went wrong, try again.",
@@ -64,4 +64,4 @@ class TasksController {
   }
 }
 
-module.exports = new TasksController();
+module.exports = new GroupsController();
