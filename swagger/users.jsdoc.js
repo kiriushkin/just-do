@@ -104,6 +104,9 @@
  *                 message:
  *                   type: string
  *                   example: User updated.
+ *                 data:
+ *                   type: object
+ *                   description: Created task
  *       400:
  *         description: Wrong password.
  *         content:
