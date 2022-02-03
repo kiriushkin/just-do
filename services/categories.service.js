@@ -19,12 +19,13 @@ class CategoriesService {
 
   async updateCategory(category) {
     const resp = await Category.update(category, {
+      returning: true,
       where: { id: category.id },
     });
 
     if (!resp) return false;
 
-    return resp;
+    return resp[1][0];
   }
 
   async deleteCategory(id) {

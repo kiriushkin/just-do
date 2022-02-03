@@ -19,12 +19,13 @@ class TasksService {
 
   async updateTask(task) {
     const result = await Task.update(task, {
+      returning: true,
       where: { id: task.id },
     });
 
     if (!result) return false;
 
-    return result;
+    return result[1][0];
   }
 
   async deleteTask(id) {
