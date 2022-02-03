@@ -59,7 +59,7 @@ class UsersController {
 
       if (!result) throw new Error();
 
-      res.send({ message: "User updated." });
+      res.send({ message: "User updated.", data: result });
     } catch (e) {
       res.status(500).send({
         message: "Something went wrong, try again.",

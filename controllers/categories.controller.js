@@ -39,7 +39,7 @@ class CategoriesController {
 
       if (!result) throw new Error();
 
-      res.send({ message: "Category updated." });
+      res.send({ message: "Category updated.", data: result });
     } catch (e) {
       res.status(500).send({
         message: "Something went wrong, try again.",

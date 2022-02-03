@@ -39,7 +39,7 @@ class TasksController {
 
       if (!result) throw new Error();
 
-      res.status(200).send({ message: "Task updated." });
+      res.status(200).send({ message: "Task updated.", data: result });
     } catch (e) {
       res.status(500).send({
         message: "Something went wrong, try again.",
