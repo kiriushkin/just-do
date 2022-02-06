@@ -91,6 +91,9 @@
  *               description:
  *                 type: string
  *                 example: I need to do my laundry
+ *               status:
+ *                 type: string
+ *                 example: queued
  *               deadline:
  *                 type: date
  *                 example: 2022-01-20T21:00:00.000Z
