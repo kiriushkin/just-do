@@ -18,6 +18,10 @@ const Task = sequelize.define("task", {
     type: Sequelize.STRING(255),
     allowNull: false,
   },
+  status: {
+    type: Sequelize.STRING(50),
+    allowNull: false,
+  },
   deadline: {
     type: Sequelize.DATE,
     allowNull: false,
@@ -25,8 +29,8 @@ const Task = sequelize.define("task", {
   tags: {
     type: Sequelize.STRING,
   },
-  remindIn: {
-    type: Sequelize.TIME,
+  remindAt: {
+    type: Sequelize.DATE,
     allowNull: false,
   },
   priority: {
