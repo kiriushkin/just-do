@@ -1,8 +1,25 @@
 const Task = require("../models/Task");
 
 class TasksService {
-  async getTasks(userId) {
-    const result = await Task.findAll({ where: { userId } });
+  async getTask(userId, id) {
+    const result = await Task.findOne({ raw: true, where: { userId, id } });
+
+    if (!result) return false;
+
+    return result;
+  }
+
+  async getTasks(userId, ids) {
+    let result = [];
+    if (!ids) result = await Task.findAll({ raw: true, where: { userId } });
+    else {
+      ids = ids.split(",");
+
+      for (let id of ids) {
+        const resp = await Task.findOne({ raw: true, where: { userId, id } });
+        result.push(resp);
+      }
+    }
 
     if (!result) return false;
 

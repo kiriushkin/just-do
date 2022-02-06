@@ -3,7 +3,12 @@ const TasksService = require("../services/tasks.service");
 class TasksController {
   async getTasks(req, res) {
     try {
-      const result = await TasksService.getTasks(req.user.userId);
+      let result;
+      if (req.query.id)
+        result = await TasksService.getTask(req.user.userId, req.query.id);
+      else if (req.query.ids)
+        result = await TasksService.getTasks(req.user.userId, req.query.ids);
+      else result = await TasksService.getTasks(req.user.userId);
 
       if (!result) throw new Error();
 
