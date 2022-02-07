@@ -18,7 +18,11 @@ const server = app.listen(process.env.PORT, process.env.HOST, () => {
   console.log(`Server listens http://${process.env.HOST}:${process.env.PORT}`);
 });
 
-const io = require("socket.io")(server).of("/api/websockets");
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "*",
+  },
+}).of("/api/websockets");
 
 io.on("connection", onConnection);
 
