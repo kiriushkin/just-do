@@ -10,7 +10,11 @@ const apiDocs = require("./swagger/index");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://justdoapp.herokuapp.com",
+  })
+);
 
 app.use("/api-docs", apiDocs);
 app.use("/api", routes);
