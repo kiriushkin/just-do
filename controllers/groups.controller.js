@@ -1,4 +1,5 @@
 const GroupsService = require("../services/groups.service");
+const LogsService = require("../services/logs.service");
 
 class GroupsController {
   async getGroups(req, res) {
@@ -9,6 +10,12 @@ class GroupsController {
 
       res.send(result);
     } catch (e) {
+      LogsService.createLog({
+        type: "error",
+        endpoint: req.originalUrl,
+        message: e.message,
+      });
+
       res.status(500).send({
         message: "Something went wrong, try again.",
         error: e.message,
@@ -24,8 +31,20 @@ class GroupsController {
 
       if (!result) throw new Error();
 
+      LogsService.createLog({
+        type: "success",
+        endpoint: req.originalUrl,
+        message: `${result.name} group created for user ${req.user.userId}`,
+      });
+
       res.status(201).send({ message: "Group created.", data: result });
     } catch (e) {
+      LogsService.createLog({
+        type: "error",
+        endpoint: req.originalUrl,
+        message: e.message,
+      });
+
       res.status(500).send({
         message: "Something went wrong, try again.",
         error: e.message,
@@ -39,8 +58,20 @@ class GroupsController {
 
       if (!result) throw new Error();
 
+      LogsService.createLog({
+        type: "success",
+        endpoint: req.originalUrl,
+        message: `${result.name} group updated for user ${req.user.userId}`,
+      });
+
       res.status(200).send({ message: "Group updated.", data: result });
     } catch (e) {
+      LogsService.createLog({
+        type: "error",
+        endpoint: req.originalUrl,
+        message: e.message,
+      });
+
       res.status(500).send({
         message: "Something went wrong, try again.",
         error: e.message,
@@ -54,8 +85,20 @@ class GroupsController {
 
       if (!result) throw new Error();
 
+      LogsService.createLog({
+        type: "success",
+        endpoint: req.originalUrl,
+        message: `${req.body.id} group deleted for user ${req.user.userId}`,
+      });
+
       res.status(200).send({ message: "Group deleted." });
     } catch (e) {
+      LogsService.createLog({
+        type: "error",
+        endpoint: req.originalUrl,
+        message: e.message,
+      });
+
       res.status(500).send({
         message: "Something went wrong, try again.",
         error: e.message,
