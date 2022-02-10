@@ -10,19 +10,10 @@ const apiDocs = require("./swagger/index");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(
-  cors({
-    origin: "https://justdoapp.herokuapp.com",
-  })
-);
+app.use(cors());
 
 app.use("/api-docs", apiDocs);
 app.use("/api", routes);
-
-app.use("/", express.static("client/build"));
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-});
 
 const server = app.listen(process.env.PORT, process.env.HOST, () => {
   console.log(`Server listens http://${process.env.HOST}:${process.env.PORT}`);
