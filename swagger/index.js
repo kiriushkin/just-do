@@ -18,6 +18,6 @@ const swaggerOptions = {
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
-router.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+router.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 module.exports = router;
