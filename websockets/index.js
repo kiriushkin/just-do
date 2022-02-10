@@ -4,6 +4,7 @@ const Task = require("../models/Task");
 
 const onConnection = (socket) => {
   socket.join(socket.handshake.query.id);
+  socket.emit("connection", "Connected");
 };
 
 const startCron = (io) => {
