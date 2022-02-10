@@ -1,4 +1,5 @@
 const CategoriesService = require("../services/categories.service");
+const LogsService = require("../services/logs.service");
 
 class CategoriesController {
   async getCategories(req, res) {
@@ -9,6 +10,12 @@ class CategoriesController {
 
       res.send(result);
     } catch (e) {
+      LogsService.createLog({
+        type: "error",
+        endpoint: req.originalUrl,
+        message: e.message,
+      });
+
       res.status(500).send({
         message: "Something went wrong, try again.",
         error: e.message,
@@ -24,8 +31,20 @@ class CategoriesController {
 
       if (!result) throw new Error();
 
+      LogsService.createLog({
+        type: "success",
+        endpoint: req.originalUrl,
+        message: `${result.name} category created for user ${result.userId}`,
+      });
+
       res.status(201).send({ message: "Category created.", data: result });
     } catch (e) {
+      LogsService.createLog({
+        type: "error",
+        endpoint: req.originalUrl,
+        message: e.message,
+      });
+
       res.status(500).send({
         message: "Something went wrong, try again.",
         error: e.message,
@@ -39,8 +58,20 @@ class CategoriesController {
 
       if (!result) throw new Error();
 
+      LogsService.createLog({
+        type: "success",
+        endpoint: req.originalUrl,
+        message: `${result.name} category updated for user ${result.userId}`,
+      });
+
       res.send({ message: "Category updated.", data: result });
     } catch (e) {
+      LogsService.createLog({
+        type: "error",
+        endpoint: req.originalUrl,
+        message: e.message,
+      });
+
       res.status(500).send({
         message: "Something went wrong, try again.",
         error: e.message,
@@ -54,8 +85,20 @@ class CategoriesController {
 
       if (!result) throw new Error();
 
+      LogsService.createLog({
+        type: "success",
+        endpoint: req.originalUrl,
+        message: `${req.body.id} category deleted for user ${req.user.userId}`,
+      });
+
       res.send({ message: "Category deleted." });
     } catch (e) {
+      LogsService.createLog({
+        type: "error",
+        endpoint: req.originalUrl,
+        message: e.message,
+      });
+
       res.status(500).send({
         message: "Something went wrong, try again.",
         error: e.message,

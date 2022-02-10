@@ -1,6 +1,7 @@
 const { validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 const AuthService = require("../services/auth.service");
+const LogsService = require("../services/logs.service");
 
 class AuthController {
   async checkEmail(req, res) {
@@ -13,6 +14,12 @@ class AuthController {
 
       res.send({ message: "Email is free." });
     } catch (e) {
+      LogsService.createLog({
+        type: "error",
+        endpoint: req.originalUrl,
+        message: e.message,
+      });
+
       res.status(500).send({
         message: "Something went wrong, try again.",
         error: e.message,
@@ -62,8 +69,20 @@ class AuthController {
 
       if (!result) throw new Error();
 
+      LogsService.createLog({
+        type: "success",
+        endpoint: req.originalUrl,
+        message: `User ${req.body.email} created.`,
+      });
+
       res.status(201).send({ message: "User created." });
     } catch (e) {
+      LogsService.createLog({
+        type: "error",
+        endpoint: req.originalUrl,
+        message: e.message,
+      });
+
       res.status(500).send({
         message: "Something went wrong, try again.",
         error: e.message,
@@ -99,11 +118,23 @@ class AuthController {
         expiresIn: "30d",
       });
 
+      LogsService.createLog({
+        type: "success",
+        endpoint: req.originalUrl,
+        message: `User ${user.id} logged in.`,
+      });
+
       res.send({ token, userId: user.id });
     } catch (e) {
+      LogsService.createLog({
+        type: "error",
+        endpoint: req.originalUrl,
+        message: e.message,
+      });
+
       res.status(500).send({
         message: "Something went wrong, try again.",
-        error: e.message,
+        error: `While trying to login: ${e.message}`,
       });
     }
   }

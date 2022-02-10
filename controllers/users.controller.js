@@ -1,4 +1,5 @@
 const UsersService = require("../services/users.service");
+const LogsService = require("../services/logs.service");
 
 class UsersController {
   async getUser(req, res) {
@@ -13,6 +14,12 @@ class UsersController {
 
       res.send(user);
     } catch (e) {
+      LogsService.createLog({
+        type: "error",
+        endpoint: req.originalUrl,
+        message: e.message,
+      });
+
       res.status(500).send({
         message: "Something went wrong, try again.",
         error: e.message,
@@ -59,8 +66,20 @@ class UsersController {
 
       if (!result) throw new Error();
 
+      LogsService.createLog({
+        type: "success",
+        endpoint: req.originalUrl,
+        message: `User ${req.user.userId} has been updated.`,
+      });
+
       res.send({ message: "User updated.", data: result });
     } catch (e) {
+      LogsService.createLog({
+        type: "error",
+        endpoint: req.originalUrl,
+        message: e.message,
+      });
+
       res.status(500).send({
         message: "Something went wrong, try again.",
         error: e.message,
@@ -74,8 +93,20 @@ class UsersController {
 
       if (!result) throw new Error();
 
+      LogsService.createLog({
+        type: "success",
+        endpoint: req.originalUrl,
+        message: `User ${req.user.userId} has been deleted.`,
+      });
+
       res.send({ message: "User deleted." });
     } catch (e) {
+      LogsService.createLog({
+        type: "error",
+        endpoint: req.originalUrl,
+        message: e.message,
+      });
+
       res.status(500).send({
         message: "Something went wrong, try again.",
         error: e.message,

@@ -1,4 +1,5 @@
 const TasksService = require("../services/tasks.service");
+const LogsService = require("../services/logs.service");
 
 class TasksController {
   async getTasks(req, res) {
@@ -14,6 +15,12 @@ class TasksController {
 
       res.send(result);
     } catch (e) {
+      LogsService.createLog({
+        type: "error",
+        endpoint: req.originalUrl,
+        message: e.message,
+      });
+
       res.status(500).send({
         message: "Something went wrong, try again.",
         error: e.message,
@@ -29,8 +36,20 @@ class TasksController {
 
       if (!result) throw new Error();
 
+      LogsService.createLog({
+        type: "success",
+        endpoint: req.originalUrl,
+        message: `${result.name} task created for user ${req.user.userId}`,
+      });
+
       res.status(201).send({ message: "Task created.", data: result });
     } catch (e) {
+      LogsService.createLog({
+        type: "error",
+        endpoint: req.originalUrl,
+        message: e.message,
+      });
+
       res.status(500).send({
         message: "Something went wrong, try again.",
         error: e.message,
@@ -44,8 +63,20 @@ class TasksController {
 
       if (!result) throw new Error();
 
+      LogsService.createLog({
+        type: "success",
+        endpoint: req.originalUrl,
+        message: `${result.name} task updated for user ${req.user.userId}`,
+      });
+
       res.status(200).send({ message: "Task updated.", data: result });
     } catch (e) {
+      LogsService.createLog({
+        type: "error",
+        endpoint: req.originalUrl,
+        message: e.message,
+      });
+
       res.status(500).send({
         message: "Something went wrong, try again.",
         error: e.message,
@@ -59,8 +90,20 @@ class TasksController {
 
       if (!result) throw new Error();
 
+      LogsService.createLog({
+        type: "success",
+        endpoint: req.originalUrl,
+        message: `${req.body.id} task created for user ${req.user.userId}`,
+      });
+
       res.status(200).send({ message: "Task deleted." });
     } catch (e) {
+      LogsService.createLog({
+        type: "error",
+        endpoint: req.originalUrl,
+        message: e.message,
+      });
+
       res.status(500).send({
         message: "Something went wrong, try again.",
         error: e.message,
