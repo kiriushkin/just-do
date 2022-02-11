@@ -10,7 +10,11 @@ const apiDocs = require("./swagger/index");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://justdoapp.herokuapp.com",
+  })
+);
 
 app.use("/api-docs", apiDocs);
 app.use("/api", routes);
@@ -21,7 +25,7 @@ const server = app.listen(process.env.PORT, process.env.HOST, () => {
 
 const io = require("socket.io")(server, {
   cors: {
-    origin: "*",
+    origin: "wss://justdoapp.herokuapp.com",
   },
 }).of("/api/websockets");
 
