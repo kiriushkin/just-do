@@ -23,6 +23,15 @@ const server = app.listen(process.env.PORT, process.env.HOST, () => {
   console.log(`Server listens http://${process.env.HOST}:${process.env.PORT}`);
 });
 
+app.use(favicon(__dirname + "/build/favicon.ico"));
+
+app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, "build")));
+
+app.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
+
 const io = require("socket.io")(server, {
   cors: {
     origin: "wss://justdoapp.herokuapp.com",
