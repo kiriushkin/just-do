@@ -1,6 +1,6 @@
 require("dotenv").config({ path: "./config/.env" });
 const cors = require("cors");
-const { path } = require("express/lib/application");
+const path = require("path");
 const express = require("express");
 const app = express();
 const { onConnection, startCron } = require("./websockets");
@@ -19,10 +19,7 @@ app.use(
 app.use("/api-docs", apiDocs);
 app.use("/api", routes);
 
-app.use(favicon(__dirname + "/build/favicon.ico"));
-
-app.use(express.static(__dirname));
-app.use(express.static(path.join(__dirname, "build")));
+app.use(express.static(path.join(__dirname, "client", "build")));
 
 app.get("/*", function (req, res) {
   res.sendFile(path.join(__dirname, "build", "index.html"));
