@@ -24,7 +24,7 @@ if (process.env.NODE_ENV === "development") {
     );
   });
 } else {
-  server = app.listen("8080", "localhost");
+  server = app.listen(8080, "localhost");
 }
 
 const io = require("socket.io")(server, {
