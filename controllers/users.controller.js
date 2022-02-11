@@ -44,6 +44,8 @@ class UsersController {
           });
 
         newUser.avatarUrl = req.file.path.replace("\\", "/");
+      } else if (req.body.image === "null") {
+        newUser.avatarUrl = null;
       }
 
       if (req.body.newPassword) {
