@@ -23,9 +23,9 @@ if (process.env.NODE_ENV === "development") {
       `Server listens http://${process.env.HOST}:${process.env.PORT}`
     );
   });
+} else {
+  server = app.listen("8080");
 }
-
-server = app.listen();
 
 const io = require("socket.io")(server, {
   cors: {
