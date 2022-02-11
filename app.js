@@ -15,19 +15,9 @@ app.use(cors());
 app.use("/api-docs", apiDocs);
 app.use("/api", routes);
 
-let server;
-
-if (process.env.NODE_ENV === "development") {
-  server = app.listen(process.env.PORT, process.env.HOST, () => {
-    console.log(
-      `Server listens http://${process.env.HOST}:${process.env.PORT}`
-    );
-  });
-} else {
-  server = app.listen(8080, "localhost", () => {
-    console.log(`Production build is running.`);
-  });
-}
+const server = app.listen(process.env.PORT, process.env.HOST, () => {
+  console.log(`Server listens http://${process.env.HOST}:${process.env.PORT}`);
+});
 
 const io = require("socket.io")(server, {
   cors: {
